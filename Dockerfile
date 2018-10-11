@@ -44,20 +44,25 @@ USER android
 # Installs Android SDK
 # ——————————
 ENV ANDROID_SDK_VERSION r24.4.1
-ENV ANDROID_BUILD_TOOLS_VERSION build-tools-23.0.1,build-tools-25.0.1,build-tools-26.0.3,build-tools-28.0.2
-
 ENV ANDROID_SDK_FILENAME android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
 ENV ANDROID_SDK_URL http://dl.google.com/android/${ANDROID_SDK_FILENAME}
-ENV ANDROID_API_LEVELS android-28
-ENV ANDROID_EXTRA_COMPONENTS extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services 
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+
 RUN cd /opt && \
     wget -q ${ANDROID_SDK_URL} && \
     tar -xzf ${ANDROID_SDK_FILENAME} && \
     rm ${ANDROID_SDK_FILENAME} && \
-    echo y | android update sdk --no-ui -a --filter tools,platform-tools,${ANDROID_API_LEVELS},${ANDROID_BUILD_TOOLS_VERSION} && \
-    echo y | android update sdk --no-ui --all --filter "${ANDROID_EXTRA_COMPONENTS}"
+    echo y | android update sdk --no-ui --all --filter tools && \
+    echo y | android update sdk --no-ui --all --filter platform-tools && \
+    echo y | android update sdk --no-ui --all --filter android-26 && \
+    echo y | android update sdk --no-ui --all --filter build-tools-28.0.2 && \
+    echo y | android update sdk --no-ui --all --filter build-tools-26.0.3 && \
+    echo y | android update sdk --no-ui --all --filter build-tools-25.0.1 && \
+    echo y | android update sdk --no-ui --all --filter build-tools-23.0.1 && \
+    echo y | android update sdk --no-ui --all --filter extra-android-m2repository && \
+    echo y | android update sdk --no-ui --all --filter extra-google-m2repository && \
+    echo y | android update sdk --no-ui --all --filter extra-google-google_play_services
 
 # ——————————
 # Installs Gradle
