@@ -87,4 +87,10 @@ ENV PATH ${PATH}:/opt/node/bin
 RUN npm install react-native-cli -g
 RUN npm install yarn -g
 
+
+# ——————————
+# Fix issue with CircleCI not accepting high UIDs 
+# ——————————
+RUN chown -R root:root /opt
+
 ENV LANG en_US.UTF-8
