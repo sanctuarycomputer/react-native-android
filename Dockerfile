@@ -42,12 +42,12 @@ RUN dpkg --add-architecture i386 && \
 # Installs Android SDK
 # ——————————
 
-ENV ANDROID_SDK_VERSION r24.4.1
-ENV ANDROID_BUILD_TOOLS_VERSION build-tools-25.0.2,build-tools-23.0.2,build-tools-23.0.3,build-tools-23.0.1
+ENV ANDROID_SDK_VERSION r26.1.1
+ENV ANDROID_BUILD_TOOLS_VERSION build-tools-23.0.1,build-tools-25.0.1,build-tools-26.0.3,build-tools-28.0.2
 
 ENV ANDROID_SDK_FILENAME android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
 ENV ANDROID_SDK_URL http://dl.google.com/android/${ANDROID_SDK_FILENAME}
-ENV ANDROID_API_LEVELS android-25,android-23
+ENV ANDROID_API_LEVELS android-28
 ENV ANDROID_EXTRA_COMPONENTS extra-android-m2repository,extra-google-m2repository
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
@@ -63,7 +63,7 @@ RUN cd /opt && \
 # ——————————
 
 # Gradle
-ENV GRADLE_VERSION 3.3
+ENV GRADLE_VERSION 3.5.1
 
 RUN cd /usr/lib \
  && curl -fl https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -o gradle-bin.zip \
@@ -78,7 +78,7 @@ ENV PATH $PATH:$GRADLE_HOME/bin
 # ——————————
 # Install Node and global packages
 # ——————————
-ENV NODE_VERSION 6.10.2
+ENV NODE_VERSION 8.11.3
 RUN cd && \
     wget -q http://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz && \
     tar -xzf node-v${NODE_VERSION}-linux-x64.tar.gz && \
