@@ -62,6 +62,8 @@ RUN cd /opt && \
 # ——————————
 # Installs Gradle
 # ——————————
+USER root
+
 ENV GRADLE_VERSION 3.5.1
 
 RUN cd /usr/lib \
@@ -77,8 +79,6 @@ ENV PATH $PATH:$GRADLE_HOME/bin
 # ——————————
 # Install Node and global packages
 # ——————————
-USER root
-
 ENV NODE_VERSION 8.11.3
 RUN cd && \
     wget -q http://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz && \
