@@ -30,7 +30,6 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 # ——————————
 # Installs i386 architecture required for running 32 bit Android tools
 # ——————————
-
 RUN dpkg --add-architecture i386 && \
     apt-get update -y && \
     apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 && \
@@ -41,7 +40,6 @@ RUN dpkg --add-architecture i386 && \
 # ——————————
 # Installs Android SDK
 # ——————————
-
 ENV ANDROID_SDK_VERSION r24.4.1
 ENV ANDROID_BUILD_TOOLS_VERSION build-tools-23.0.1,build-tools-25.0.1,build-tools-26.0.3,build-tools-28.0.2
 
@@ -61,8 +59,6 @@ RUN cd /opt && \
 # ——————————
 # Installs Gradle
 # ——————————
-
-# Gradle
 ENV GRADLE_VERSION 3.5.1
 
 RUN cd /usr/lib \
