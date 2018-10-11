@@ -36,6 +36,10 @@ RUN dpkg --add-architecture i386 && \
     apt-get autoremove -y && \
     apt-get clean
 
+RUN useradd -u 1000 -M -s /bin/bash android
+RUN chown 1000 /opt
+USER android
+
 # ——————————
 # Installs Android SDK
 # ——————————
@@ -73,6 +77,8 @@ ENV PATH $PATH:$GRADLE_HOME/bin
 # ——————————
 # Install Node and global packages
 # ——————————
+USER root
+
 ENV NODE_VERSION 8.11.3
 RUN cd && \
     wget -q http://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz && \
@@ -87,10 +93,8 @@ ENV PATH ${PATH}:/opt/node/bin
 RUN npm install react-native-cli -g
 RUN npm install yarn -g
 
-
 # ——————————
-# Fix issue with CircleCI not accepting high UIDs 
+# Env Vars
 # ——————————
-RUN chown -R root:root /opt
-
 ENV LANG en_US.UTF-8
+RUN apt-get clean
