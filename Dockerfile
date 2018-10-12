@@ -5,15 +5,17 @@ FROM ubuntu:14.04
 RUN apt-get update && \
     apt-get install software-properties-common \
     python-software-properties \
-    ruby \
-    ruby-dev \
-    ruby-bundler \
+    ruby-full \
     wget \
     curl \
     git \
     lftp \
     unzip -y && \
     apt-get clean
+
+RUN echo 'gem: --no-document' > /usr/local/etc/gemrc \
+    && gem update \
+    && gem install bundler
 
 # ——————————
 # Install Java.
