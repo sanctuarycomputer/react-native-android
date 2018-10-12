@@ -5,7 +5,9 @@ FROM ubuntu:14.04
 RUN apt-get update && \
     apt-get install software-properties-common \
     python-software-properties \
-    ruby-full \
+    ca-certificates \
+    gnupg2 \
+    build-essential \
     wget \
     curl \
     git \
@@ -13,12 +15,15 @@ RUN apt-get update && \
     unzip -y && \
     apt-get clean
 
-RUN echo 'gem: --no-document' > /usr/local/etc/gemrc \
-    && gem update \
-    && gem install bundler
+# ——————————
+# Install Ruby
+# ——————————
+RUN gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+RUN curl -sSL https://get.rvm.io | bash -s
+RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.5.1 && gem install bundler"
 
 # ——————————
-# Install Java.
+# Install Java
 # ——————————
 RUN \
   echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
