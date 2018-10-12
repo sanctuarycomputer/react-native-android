@@ -5,6 +5,9 @@ FROM ubuntu:14.04
 RUN apt-get update && \
     apt-get install software-properties-common \
     python-software-properties \
+    ruby \
+    ruby-dev \
+    ruby-bundler \
     wget \
     curl \
     git \
@@ -36,13 +39,13 @@ RUN dpkg --add-architecture i386 && \
     apt-get autoremove -y && \
     apt-get clean
 
+# ——————————
+# Installs Android SDK
+# ——————————
 RUN useradd -u 1000 -M -s /bin/bash android
 RUN chown 1000 /opt
 USER android
 
-# ——————————
-# Installs Android SDK
-# ——————————
 ENV ANDROID_HOME /opt/android-sdk
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 ENV ANDROID_SDK_FILE=sdk-tools-linux-4333796.zip
@@ -102,4 +105,3 @@ RUN npm install yarn -g
 # Env Vars
 # ——————————
 ENV LANG en_US.UTF-8
-RUN apt-get clean
