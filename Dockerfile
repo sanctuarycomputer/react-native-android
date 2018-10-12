@@ -43,26 +43,26 @@ USER android
 # ——————————
 # Installs Android SDK
 # ——————————
-ENV ANDROID_SDK_VERSION r24.4.1
-ENV ANDROID_SDK_FILENAME android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
-ENV ANDROID_SDK_URL http://dl.google.com/android/${ANDROID_SDK_FILENAME}
-ENV ANDROID_HOME /opt/android-sdk-linux
+ENV ANDROID_HOME /opt/android-sdk
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+ENV ANDROID_SDK_FILE=sdk-tools-linux-4333796.zip
 
 RUN cd /opt && \
-    wget -q ${ANDROID_SDK_URL} && \
-    tar -xzf ${ANDROID_SDK_FILENAME} && \
-    rm ${ANDROID_SDK_FILENAME} && \
-    echo y | android update sdk --no-ui --all --filter tools && \
-    echo y | android update sdk --no-ui --all --filter platform-tools && \
-    echo y | android update sdk --no-ui --all --filter android-26 && \
-    echo y | android update sdk --no-ui --all --filter build-tools-28.0.2 && \
-    echo y | android update sdk --no-ui --all --filter build-tools-26.0.3 && \
-    echo y | android update sdk --no-ui --all --filter build-tools-25.0.1 && \
-    echo y | android update sdk --no-ui --all --filter build-tools-23.0.1 && \
-    echo y | android update sdk --no-ui --all --filter extra-android-m2repository && \
-    echo y | android update sdk --no-ui --all --filter extra-google-m2repository && \
-    echo y | android update sdk --no-ui --all --filter extra-google-google_play_services
+  wget -q https://dl.google.com/android/repository/${ANDROID_SDK_FILE} && \
+  unzip -q ${ANDROID_SDK_FILE} -d android-sdk && \
+  rm ${ANDROID_SDK_FILE} && \
+  yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+
+RUN $ANDROID_HOME/tools/bin/sdkmanager \ 
+  "platform-tools" \ 
+  "platforms;android-26" \
+  "build-tools;28.0.2" \ 
+  "build-tools;26.0.3" \ 
+  "build-tools;25.0.1" \
+  "build-tools;23.0.1" \
+  "extras;google;m2repository" \
+  "extras;android;m2repository" \
+  "extras;google;google_play_services"
 
 # ——————————
 # Installs Gradle
