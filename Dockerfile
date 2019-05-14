@@ -16,7 +16,7 @@ RUN apt-get update && \
     apt-get clean
 
 # ——————————
-# Install Ruby
+# Install Ruby (use `source /etc/profile.d/rvm.sh` to use Ruby)
 # ——————————
 RUN gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
 RUN curl -sSL https://get.rvm.io | bash -s
@@ -79,7 +79,7 @@ RUN $ANDROID_HOME/tools/bin/sdkmanager \
 # ——————————
 USER root
 
-ENV GRADLE_VERSION 3.5.1
+ENV GRADLE_VERSION 4.1
 
 RUN cd /usr/lib \
  && curl -fl https://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -o gradle-bin.zip \
