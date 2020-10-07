@@ -25,16 +25,14 @@ RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.5.1 && gem install
 # ——————————
 # Install Java
 # ——————————
-RUN \
-  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-  add-apt-repository -y ppa:webupd8team/java && \
-  apt-get update && \
-  apt-get install -y oracle-java8-installer && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer
+RUN apt-get -y install software-properties-common && \
+    add-apt-repository -y ppa:openjdk-r/ppa && \
+    apt-get update && \
+    apt-get -y install openjdk-8-jdk && \
+    update-ca-certificates -f
 
-# Define commonly used JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV PATH $JAVA_HOME/bin:$PATH
 
 # ——————————
 # Installs i386 architecture required for running 32 bit Android tools
@@ -99,7 +97,7 @@ ENV PATH $PATH:$GRADLE_HOME/bin
 # ——————————
 # Install Node and global packages
 # ——————————
-ENV NODE_VERSION 8.11.3
+ENV NODE_VERSION 10.13.0
 RUN cd && \
     wget -q http://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz && \
     tar -xzf node-v${NODE_VERSION}-linux-x64.tar.gz && \
