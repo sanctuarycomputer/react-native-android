@@ -63,11 +63,16 @@ RUN cd /opt && \
   rm ${ANDROID_SDK_FILE} && \
   yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
-RUN $ANDROID_HOME/tools/bin/sdkmanager \ 
-  "platform-tools" \ 
+RUN $ANDROID_HOME/tools/bin/sdkmanager \
+  "platform-tools" \
+  "platforms;android-29" \
+  "platforms;android-28" \
+  "platforms;android-27" \
   "platforms;android-26" \
-  "build-tools;28.0.2" \ 
-  "build-tools;26.0.3" \ 
+  "platforms;android-25" \
+  "build-tools;28.0.3" \
+  "build-tools;28.0.2" \
+  "build-tools;26.0.3" \
   "build-tools;25.0.1" \
   "build-tools;23.0.1" \
   "extras;google;m2repository" \
