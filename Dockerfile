@@ -62,7 +62,7 @@ RUN cd /opt && \
   yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
 RUN $ANDROID_HOME/tools/bin/sdkmanager \
-  "ndk-bundle" \
+  "ndk;21.3.6528147" \
   "platform-tools" \
   "platforms;android-29" \
   "platforms;android-28" \
