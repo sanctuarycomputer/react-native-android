@@ -82,7 +82,6 @@ RUN $ANDROID_HOME/tools/bin/sdkmanager \
 # Installs Gradle
 # ——————————
 USER root
-
 ENV GRADLE_VERSION 4.1
 
 RUN cd /usr/lib \
